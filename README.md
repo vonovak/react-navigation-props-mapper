@@ -7,7 +7,7 @@ or
 `npm i react-navigation-props-mapper --save`
 
 
-### The problem
+## The problem
 You're using react-navigation to navigate around you React Native app. The [documentation](https://reactnavigation.org/docs/intro/#Passing-params) describes you should use `this.props.navigation.state.params` to access props passed to your screen. For example:
 
 ```
@@ -50,7 +50,7 @@ const MainNavigator = StackNavigator({
 });
 ```
 
-### withMappedNavigationAndConfigProps
+### `withMappedNavigationAndConfigProps`
 When using a function in `static navigationOptions` to configure eg. a screen header dynamically based on the props, you're dealing with the same issues as mentioned above. `withMappedNavigationAndConfigProps` does the same as `withMappedNavigationProps` but also saves you some hassle when defining screen's `static navigationOptions` property. For example, it allows turning
 
 ```
