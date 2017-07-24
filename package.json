@@ -1,0 +1,31 @@
+{
+  "name": "react-navigation-props-mapper",
+  "version": "0.1.0",
+  "description": "Make your life a little easier by using regular props with react-navigation.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vonovak/react-navigation-props-mapper.git"
+  },
+  "keywords": [
+    "react-native",
+    "react-navigation",
+    "regular",
+    "props"
+  ],
+  "peerDependencies": {
+    "react": "*"
+  },
+  "dependencies": {
+    "hoist-non-react-statics": "^2.2.1"
+  },
+  "author": "Vojtech Novak",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/vonovak/react-navigation-props-mapper/issues"
+  },
+  "homepage": "https://github.com/vonovak/react-navigation-props-mapper#readme"
+}
