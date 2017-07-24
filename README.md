@@ -1,17 +1,24 @@
 ## react-navigation-props-mapper
 
+`yarn add react-navigation-props-mapper`
+
+or
+
+`npm i react-navigation-props-mapper --save`
+
+
 ### The problem
 You're using react-navigation to navigate around you React Native app. The [documentation](https://reactnavigation.org/docs/intro/#Passing-params) describes you should use `this.props.navigation.state.params` to access props passed to your screen. For example:
 
 ```
 render() {
-	// The screen's current route is passed in to `props.navigation.state`:
-	const { params } = this.props.navigation.state;
-	return (
-	  <View>
-	    <Text>Chat with {params.user.userName}</Text>
-	  </View>
-	);
+  // The screen's current route is passed in to `props.navigation.state`:
+  const { params } = this.props.navigation.state;
+  return (
+    <View>
+      <Text>Chat with {params.user.userName}</Text>
+    </View>
+  );
 }
 ```
 
