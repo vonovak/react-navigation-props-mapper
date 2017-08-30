@@ -3,8 +3,10 @@ import hoistNonReactStatic from 'hoist-non-react-statics';
 
 export function withMappedNavigationProps(WrappedComponent) {
   const TargetComponent = props => {
-    const { navigation: { state: { params } }, screenProps } = props;
-    return <WrappedComponent {...props} {...params} {...screenProps} />;
+    const { navigation: { state: { params } } } = props;
+    const { screenProps, ...propsExceptScreenProps } = props;
+
+    return <WrappedComponent {...screenProps} {...propsExceptScreenProps} {...params} />;
   };
 
   WrappedComponent.displayName = `withMappedNavigationProps(${WrappedComponent.displayName ||
