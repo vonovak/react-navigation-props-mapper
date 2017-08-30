@@ -1,12 +1,23 @@
 import React from 'react';
 import hoistNonReactStatic from 'hoist-non-react-statics';
 
-export function withMappedNavigationProps(WrappedComponent) {
+export function withMappedNavigationProps(WrappedComponent, SecondOrderWrapperComponent) {
   const TargetComponent = props => {
     const { navigation: { state: { params } } } = props;
     const { screenProps, ...propsExceptScreenProps } = props;
 
-    return <WrappedComponent {...screenProps} {...propsExceptScreenProps} {...params} />;
+    if (SecondOrderWrapperComponent) {
+      return (
+        <SecondOrderWrapperComponent
+          WrappedComponent={WrappedComponent}
+          {...screenProps}
+          {...propsExceptScreenProps}
+          {...params}
+        />
+      );
+    } else {
+      return <WrappedComponent {...screenProps} {...propsExceptScreenProps} {...params} />;
+    }
   };
 
   WrappedComponent.displayName = `withMappedNavigationProps(${WrappedComponent.displayName ||
@@ -15,8 +26,11 @@ export function withMappedNavigationProps(WrappedComponent) {
   return hoistNonReactStatic(TargetComponent, WrappedComponent);
 }
 
-export function withMappedNavigationAndConfigProps(WrappedComponent) {
-  const TargetWithHoistedStatics = withMappedNavigationProps(WrappedComponent);
+export function withMappedNavigationAndConfigProps(WrappedComponent, SecondOrderWrapperComponent) {
+  const TargetWithHoistedStatics = withMappedNavigationProps(
+    WrappedComponent,
+    SecondOrderWrapperComponent
+  );
 
   if (typeof WrappedComponent.navigationOptions === 'function') {
     TargetWithHoistedStatics.navigationOptions = navigationProps =>
