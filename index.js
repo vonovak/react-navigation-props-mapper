@@ -42,6 +42,6 @@ export function withMappedNavigationAndConfigProps(WrappedComponent, SecondOrder
 
 export function mapScreenConfigProps(reactNavigationProps, routeConfigFunction) {
   const { navigation, screenProps, navigationOptions } = reactNavigationProps;
-  const props = { ...navigation.state.params, ...screenProps, navigationOptions, navigation };
+  const props = { ...screenProps, ...navigation.state.params, navigationOptions, navigation };
   return routeConfigFunction(props);
 }
