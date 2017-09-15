@@ -83,3 +83,12 @@ static navigationOptions = ({navigation, name }) => ({
 
 #### Usage
 `import { withMappedNavigationAndConfigProps } from 'react-navigation-props-mapper` and use the same way as `withMappedNavigationProps`. In your screen component, use `static navigationOptions`, same as you'd do normally.
+
+
+### Injecting Additional Props
+Both `withMappedNavigationAndConfigProps` and `withMappedNavigationProps` accept an optional second parameter, of type `ReactClass` that gets all the navigation props and the wrapped component as a props. You may do some additional logic in this object. TODO example.
+
+
+<!-- In many cases you may want to inject some additional props to your component. For example: when trying to do `this.props.navigation.navigate('SomeScreen', {someComplicatedObject: someComplicatedObjectInstance})`, `react-navigation` is likely to throw (if the object cannot be serialized to JSON), because it is recommended to pass only string props between screens, so that deep linking works.
+
+You may thus pass the string and then use it in your component to get an object that is described by the string. Example: you pass `{username: 'John'}` and then in your component you do something like `userStore.getUserByUname(this.props.username)` to get the `User` object. Wouldn't it be easier for your component to get the `User` object as a prop? Both `withMappedNavigationAndConfigProps` and `withMappedNavigationProps` accept an optional second parameter, a react component that gets all the props and the wrapped component as a prop. Then you can pass all the props to the wrapped component and return it from render(). -->
