@@ -24,7 +24,7 @@ render() {
 
 You don't like this because you
 
-1 . don't want your code to be tightly coupled to react-navigation
+1 . don't want your code to be tightly coupled to react-navigation (maybe you're coming from ex-navigation and your screen components are not compatible with the react-navigation's way of passing props)
 
 2 . want to reuse your component somewhere else
 
@@ -122,5 +122,9 @@ That way, in your `ChatScreen` component, you don't have to work with user id, b
 
 #### Tip
 
-If you don't like the function names, you may import the functions with an alias: `import { withMappedNavigationAndConfigProps as mapperFunc } from 'react-navigation-props-mapper';`
+If you don't like the function names, you may import the functions with an alias: 
+
+```js
+import { withMappedNavigationAndConfigProps as mapperFunc } from 'react-navigation-props-mapper';
+```
 
