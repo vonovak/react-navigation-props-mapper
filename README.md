@@ -10,7 +10,7 @@ or
 ## The problem
 You're using react-navigation to navigate around you React Native app. The [documentation](https://reactnavigation.org/docs/intro/#Passing-params) describes you should use `this.props.navigation.state.params` to access props passed to your screen. For example:
 
-```
+```js
 render() {
   // The screen's current route is passed in to `props.navigation.state`:
   const { params } = this.props.navigation.state;
@@ -41,7 +41,7 @@ Use this function to be able to access the props passed to your screen *directly
 #### Usage
 When defining the screens for your navigator, wrap the screen component with the function. For example:
 
-```
+```js
 import { withMappedNavigationProps } from 'react-navigation-props-mapper'
 ...
 const MainNavigator = StackNavigator({
@@ -53,7 +53,7 @@ const MainNavigator = StackNavigator({
 ### `withMappedNavigationAndConfigProps`
 When using a function in `static navigationOptions` to configure eg. a screen header dynamically based on the props, you're dealing with the same issues as mentioned above. `withMappedNavigationAndConfigProps` does the same as `withMappedNavigationProps` but also saves you some hassle when defining screen's `static navigationOptions` property. For example, it allows turning
 
-```
+```js
 static navigationOptions = ({ navigation }) => ({
   title: `${navigation.state.params.name}'s Profile!`,
   headerRight: (
@@ -62,16 +62,7 @@ static navigationOptions = ({ navigation }) => ({
 });
 ```
 into
-```
-static navigationOptions = (props) => ({
-  title: props.name,
-  headerRight: (
-      <HeaderButton title="Sort" onPress={() => props.navigation.navigate('DrawerOpen')} />
-    ),
-});
-```
-or
-```
+```js
 static navigationOptions = ({navigation, name }) => ({
   title: name,
   headerRight: (
@@ -86,9 +77,50 @@ static navigationOptions = ({navigation, name }) => ({
 
 
 ### Injecting Additional Props
-Both `withMappedNavigationAndConfigProps` and `withMappedNavigationProps` accept an optional second parameter, of type `ReactClass` that gets all the navigation props and the wrapped component as a props. You may do some additional logic in this object. TODO example.
+Consider the [deep linking guide](https://reactnavigation.org/docs/guides/linking#Configuration) from react-navigation.
+You have a chat screen defined as:
 
+```js
+Chat: {
+    screen: ChatScreen,
+    path: 'chat/:userId',
+  },
+```
 
-<!-- In many cases you may want to inject some additional props to your component. For example: when trying to do `this.props.navigation.navigate('SomeScreen', {someComplicatedObject: someComplicatedObjectInstance})`, `react-navigation` is likely to throw (if the object cannot be serialized to JSON), because it is recommended to pass only string props between screens, so that deep linking works.
+you may need to use the `userId` parameter to get the respective `user` object and do some work with it. Wouldn't it be more convenient to directly get the `user` object instead of just the id? Both `withMappedNavigationAndConfigProps` and `withMappedNavigationProps` accept an optional second parameter, of type `ReactClass` (a react component) that gets all the navigation props and the wrapped component as props. You may do some additional logic in this component and then render the wrapped component, for example:
 
-You may thus pass the string and then use it in your component to get an object that is described by the string. Example: you pass `{username: 'John'}` and then in your component you do something like `userStore.getUserByUname(this.props.username)` to get the `User` object. Wouldn't it be easier for your component to get the `User` object as a prop? Both `withMappedNavigationAndConfigProps` and `withMappedNavigationProps` accept an optional second parameter, a react component that gets all the props and the wrapped component as a prop. Then you can pass all the props to the wrapped component and return it from render(). -->
+```js
+import React from 'react';
+import { inject } from 'mobx-react/native';
+import { withMappedNavigationAndConfigProps } from 'react-navigation-props-mapper';
+
+@inject('userStore')//this injects userStore as a prop, via react context
+class AdditionalPropsInjecter extends React.Component {
+  render() {
+    const { WrappedComponent, userStore, userId } = this.props;
+
+    const additionalProps = {};
+    if (userId) {
+      additionalProps.user = userStore.getUserById(userId)
+    }
+    return <WrappedComponent {...this.props} {...additionalProps} />;
+  }
+}
+
+// then, when defining your screens
+const ChatStack = StackNavigator(
+  {
+    ChatScreen: {
+      screen: withMappedNavigationAndConfigProps(ChatScreen, AdditionalPropsInjecter),
+    },
+    // other screens
+);
+
+```
+
+That way, in your `ChatScreen` component, you don't have to work with user id, but directly work with the user object.
+
+#### Tip
+
+If you don't like the function names, you may import the functions with an alias: `import { withMappedNavigationAndConfigProps as mapperFunc } from 'react-navigation-props-mapper';`
+
