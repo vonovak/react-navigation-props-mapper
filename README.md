@@ -50,6 +50,13 @@ const MainNavigator = StackNavigator({
 });
 ```
 
+You may, of course, also use this directly on your screen components:
+
+```js
+@withMappedNavigationProps
+export default class SomeScreen extends Component {
+```
+
 ### `withMappedNavigationAndConfigProps`
 When using a function in `static navigationOptions` to configure eg. a screen header dynamically based on the props, you're dealing with the same issues as mentioned above. `withMappedNavigationAndConfigProps` does the same as `withMappedNavigationProps` but also saves you some hassle when defining screen's `static navigationOptions` property. For example, it allows turning
 
