@@ -1,3 +1,6 @@
+import React from 'react';
+import hoistNonReactStatic from 'hoist-non-react-statics';
+
 export const withMappedNavigationProps = SecondOrderWrapperComponent => WrappedComponent => {
   const TargetComponent = props => {
     const { navigation: { state: { params } } } = props;
