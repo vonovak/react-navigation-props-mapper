@@ -20,7 +20,7 @@ export function withMappedNavigationProps(WrappedComponent, SecondOrderWrapperCo
     }
   };
 
-  WrappedComponent.displayName = `withMappedNavigationProps(${WrappedComponent.displayName ||
+  TargetComponent.displayName = `withMappedNavigationProps(${WrappedComponent.displayName ||
     WrappedComponent.name})`;
 
   return hoistNonReactStatic(TargetComponent, WrappedComponent);
