@@ -104,7 +104,7 @@ import { withMappedNavigationAndConfigProps } from 'react-navigation-props-mappe
 
 class AdditionalPropsInjecter extends React.Component {
   // In this component you may do eg. a network fetch to get data needed by the screen component.
-  // Once you have the data ready, you may also call `setParams`.
+  // Once you have the data ready, you may also need to call `setParams`.
   render() {
     const { WrappedComponent, userStore, userId } = this.props;
 
