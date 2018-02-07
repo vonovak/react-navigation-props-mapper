@@ -6,7 +6,9 @@ export const withMappedNavigationProps = SecondOrderWrapperComponent => WrappedC
     const { navigation: { state: { params } } } = props;
     const { screenProps, ...propsExceptScreenProps } = props;
 
-    if (SecondOrderWrapperComponent) {
+    if (!SecondOrderWrapperComponent) {
+      return <WrappedComponent {...screenProps} {...propsExceptScreenProps} {...params} />;
+    } else {
       return (
         <SecondOrderWrapperComponent
           WrappedComponent={WrappedComponent}
@@ -15,8 +17,6 @@ export const withMappedNavigationProps = SecondOrderWrapperComponent => WrappedC
           {...params}
         />
       );
-    } else {
-      return <WrappedComponent {...screenProps} {...propsExceptScreenProps} {...params} />;
     }
   };
 
