@@ -34,7 +34,7 @@ render() {
 }
 ```
 
-You don't like this because you don't want your code to be tightly coupled to react-navigation (maybe you're coming from ex-navigation and your screen components are not compatible with the react-navigation's way of passing props) and perhaps don't find this very elegant. More in related [github issue](https://github.com/react-community/react-navigation/issues/935).
+You don't like this because you don't want your code to be tightly coupled to react-navigation (maybe you're coming from ex-navigation and your screen components are not compatible with the react-navigation's way of passing props) and perhaps don't find this very elegant.
 
 
 This small package offers two functions to ease working with the props from react-navigation:
