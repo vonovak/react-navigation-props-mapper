@@ -18,9 +18,9 @@ export class SomeScreen extends Component {
 export class SomeScreen extends Component {
 ```
 
-## The problem
+## Motivation
 
-You're using react-navigation to navigate around you React Native app. The [documentation](https://reactnavigation.org/docs/intro/#Passing-params) describes you should use `this.props.navigation.state.params` to access props passed to your screen. For example:
+You're using react-navigation to navigate around you React Native app. The [documentation](https://reactnavigation.org/docs/params.html) describes you should use `this.props.navigation.state.params` to access props passed to your screen. For example:
 
 ```js
 render() {
@@ -34,13 +34,10 @@ render() {
 }
 ```
 
-You don't like this because you don't want your code to be tightly coupled to react-navigation (maybe you're coming from ex-navigation and your screen components are not compatible with the react-navigation's way of passing props) and don't find this very elegant.
+You don't like this because you don't want your code to be tightly coupled to react-navigation (maybe you're coming from ex-navigation and your screen components are not compatible with the react-navigation's way of passing props) and perhaps don't find this very elegant. More in related [github issue](https://github.com/react-community/react-navigation/issues/935).
 
-More in related [github issue](https://github.com/react-community/react-navigation/issues/935)
 
-## The solution
-
-This small package offers two functions to ease working with the props from react-navigation.
+This small package offers two functions to ease working with the props from react-navigation:
 
 ### `withMappedNavigationProps`
 
@@ -85,7 +82,7 @@ static navigationOptions = ({ navigation, name }) => ({
 
 ### Injecting Additional Props to Your screen
 
-Consider the [deep linking guide](https://reactnavigation.org/docs/guides/linking#Configuration) from react-navigation.
+Consider the [deep linking guide](https://reactnavigation.org/docs/deep-linking.html) from react-navigation.
 You have a chat screen defined as:
 
 ```js
