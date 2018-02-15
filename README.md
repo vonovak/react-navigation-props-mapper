@@ -48,6 +48,8 @@ Use this function to be able to access the props passed to your screen _directly
 When defining the screens for your navigator, wrap the screen component with the function. For example:
 
 ```js
+import { withMappedNavigationProps } from 'react-navigation-props-mapper'
+
 @withMappedNavigationProps()
 export class SomeScreen extends Component {
 ```
@@ -78,7 +80,7 @@ static navigationOptions = ({ navigation, name }) => ({
 
 #### Usage
 
-`import { withMappedNavigationAndConfigProps } from 'react-navigation-props-mapper` and use the same way as `withMappedNavigationProps`. In your screen component, use `static navigationOptions`, same as you'd do normally.
+`import { withMappedNavigationAndConfigProps } from 'react-navigation-props-mapper'` and use the same way as `withMappedNavigationProps`. In your screen component, use `static navigationOptions`, same as you'd do normally.
 
 ### Injecting Additional Props to Your screen
 
