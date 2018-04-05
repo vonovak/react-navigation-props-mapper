@@ -6,21 +6,10 @@ or
 
 `npm i react-navigation-props-mapper`
 
-NOTE breaking change in 0.2:
-
-```js
-// change from this
-@withMappedNavigationProps
-export class SomeScreen extends Component {
-
-// to this
-@withMappedNavigationProps()
-export class SomeScreen extends Component {
-```
 
 ## Motivation
 
-You're using react-navigation to navigate around you React Native app. The [documentation](https://reactnavigation.org/docs/params.html) describes you should use `this.props.navigation.state.params` to access props passed to your screen. For example:
+You're using react-navigation to navigate around your React Native app. The [documentation](https://reactnavigation.org/docs/params.html) describes you should use `this.props.navigation.state.params` to access props passed to your screen. For example:
 
 ```js
 render() {
@@ -121,6 +110,10 @@ class ChatScreen extends React.Component {}
 ```
 
 That way, in your `ChatScreen` component, you don't have to work with user id, but directly work with the user object.
+
+#### A Word of Warning
+
+Under some circumstances (when you use `PureComponent` and have several routes depend on the same navigation param) using the aforementioned decorators may cause your screen components to re-render more that they would without the decorators.
 
 #### Tip
 
