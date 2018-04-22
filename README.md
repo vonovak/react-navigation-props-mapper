@@ -113,7 +113,7 @@ That way, in your `ChatScreen` component, you don't have to work with user id, b
 
 #### A Word of Warning
 
-Under some circumstances (when you use `PureComponent` and have several routes depend on the same navigation param) using the aforementioned decorators may cause your screen components to re-render more that they would without the decorators.
+Under some circumstances, when your screen components use `PureComponent` together with the functions from this library and you have several routes depend on the same navigation parameter, changing the navigation parameter may cause the screen components to enter an extra re-render. 
 
 #### Tip
 
