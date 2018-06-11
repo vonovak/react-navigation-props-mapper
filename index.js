@@ -1,9 +1,12 @@
 import React from 'react';
 import hoistNonReactStatic from 'hoist-non-react-statics';
 
+const get = (p, o) => p.reduce((xs, x) => (xs && xs[x]) ? xs[x] : null, o)
+
 export const withMappedNavigationProps = SecondOrderWrapperComponent => WrappedComponent => {
   const TargetComponent = props => {
-    const { navigation: { state: { params } } } = props;
+    const params = get(['navigation', 'state', 'params'], props) || {};
+    
     const { screenProps, ...propsExceptScreenProps } = props;
 
     if (!SecondOrderWrapperComponent) {
