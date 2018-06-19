@@ -3,7 +3,8 @@ import hoistNonReactStatic from 'hoist-non-react-statics';
 
 export const withMappedNavigationProps = SecondOrderWrapperComponent => WrappedComponent => {
   const TargetComponent = props => {
-    const { navigation: { state: { params } } } = props;
+    const params = props.navigation ? props.navigation.state.params : {};
+    
     const { screenProps, ...propsExceptScreenProps } = props;
 
     if (!SecondOrderWrapperComponent) {
