@@ -9,7 +9,7 @@ or
 
 ## Motivation
 
-You're using react-navigation to navigate around your React Native app. The [documentation](https://reactnavigation.org/docs/params.html) describes you should use `this.props.navigation.state.params` to access props passed to your screen. For example:
+You're using react-navigation to navigate around your React Native app. The [documentation](https://reactnavigation.org/docs/params.html) describes you should use `this.props.navigation.getParam(paramName, defaultValue)` or alternatively `this.props.navigation.state.params` to access props passed to your screen. For example:
 
 ```js
 render() {
@@ -23,10 +23,7 @@ render() {
 }
 ```
 
-You don't like this because you don't want your code to be tightly coupled to react-navigation (maybe you're coming from ex-navigation and your screen components are not compatible with the react-navigation's way of passing props) and perhaps don't find this very elegant.
-
-
-This small package offers two functions to ease working with the props from react-navigation:
+This works well but if you don't want your code to be tightly coupled to `react-navigation` (maybe because you're migrating from another navigation lib) or if you simply want to work with navigation params the same way as with any other props (and have them typed), this package will help.
 
 ### `withMappedNavigationProps`
 
@@ -60,7 +57,7 @@ into
 
 ```js
 static navigationOptions = ({ navigation, name }) => ({
-  title: name,
+  title: `${name}'s Profile!`,
   headerRight: (
       <HeaderButton title="Sort" onPress={() => navigation.navigate('DrawerOpen')} />
     ),
@@ -110,10 +107,6 @@ class ChatScreen extends React.Component {}
 ```
 
 That way, in your `ChatScreen` component, you don't have to work with user id, but directly work with the user object.
-
-#### A Word of Warning
-
-Under some circumstances, when your screen components use `PureComponent` together with the functions from this library and you have several routes depend on the same navigation parameter, changing the navigation parameter may cause the screen components to enter an extra re-render. 
 
 #### Tip
 
