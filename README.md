@@ -37,7 +37,10 @@ When defining the screens for your navigator, wrap the screen component with the
 import { withMappedNavigationProps } from 'react-navigation-props-mapper'
 
 @withMappedNavigationProps()
-export class SomeScreen extends Component {
+export default class SomeScreen extends Component {
+
+// if you don't want to use decorators:
+export default withMappedNavigationProps()(SomeScreen)
 ```
 
 ### `withMappedNavigationAndConfigProps`
