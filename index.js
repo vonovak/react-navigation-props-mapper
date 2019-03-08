@@ -4,7 +4,7 @@ import hoistNonReactStatic from 'hoist-non-react-statics';
 export const withMappedNavigationProps = SecondOrderWrapperComponent => WrappedComponent => {
   const TargetComponent = props => {
     const params = props.navigation ? props.navigation.state.params : {};
-    
+
     const { screenProps, ...propsExceptScreenProps } = props;
 
     if (!SecondOrderWrapperComponent) {
@@ -24,7 +24,9 @@ export const withMappedNavigationProps = SecondOrderWrapperComponent => WrappedC
   TargetComponent.displayName = `withMappedNavigationProps(${WrappedComponent.displayName ||
     WrappedComponent.name})`;
 
-  return hoistNonReactStatic(TargetComponent, WrappedComponent);
+  hoistNonReactStatic(TargetComponent, WrappedComponent);
+  TargetComponent.wrappedComponent = WrappedComponent;
+  return TargetComponent;
 };
 
 export const withMappedNavigationAndConfigProps = SecondOrderWrapperComponent => WrappedComponent => {

@@ -20,7 +20,7 @@
     "react": "*"
   },
   "dependencies": {
-    "hoist-non-react-statics": "^2.2.1"
+    "hoist-non-react-statics": "^3.3.0"
   },
   "author": "Vojtech Novak",
   "license": "MIT",
