@@ -1,7 +1,7 @@
 import React from 'react';
-import hoistNonReactStatic from 'hoist-non-react-statics';
+import hoistNonReactStatics from 'hoist-non-react-statics';
 
-export const withMappedNavigationProps = SecondOrderWrapperComponent => WrappedComponent => {
+export const mapNavigationProps = SecondOrderWrapperComponent => WrappedComponent => {
   const TargetComponent = props => {
     const params = props.navigation ? props.navigation.state.params : {};
 
@@ -24,13 +24,13 @@ export const withMappedNavigationProps = SecondOrderWrapperComponent => WrappedC
   TargetComponent.displayName = `withMappedNavigationProps(${WrappedComponent.displayName ||
     WrappedComponent.name})`;
 
-  hoistNonReactStatic(TargetComponent, WrappedComponent);
+  hoistNonReactStatics(TargetComponent, WrappedComponent);
   TargetComponent.wrappedComponent = WrappedComponent;
   return TargetComponent;
 };
 
-export const withMappedNavigationAndConfigProps = SecondOrderWrapperComponent => WrappedComponent => {
-  const TargetWithHoistedStatics = withMappedNavigationProps(SecondOrderWrapperComponent)(
+export const withMappedNavigationProps = SecondOrderWrapperComponent => WrappedComponent => {
+  const TargetWithHoistedStatics = mapNavigationProps(SecondOrderWrapperComponent)(
     WrappedComponent
   );
 
