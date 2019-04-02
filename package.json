@@ -6,8 +6,7 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "test": "jest",
-    "build":
-      "rm -rf dist && babel index.js --out-dir dist && cp ./index.d.ts ./dist"
+    "build": "rm -rf dist && babel index.js --out-dir dist && cp ./index.d.ts ./dist && cp ./index.js.flow ./dist"
   },
   "repository": {
     "type": "git",
@@ -33,6 +32,11 @@
   "homepage": "https://github.com/vonovak/react-navigation-props-mapper#readme",
   "devDependencies": {
     "@babel/core": "^7.3.4",
-    "metro-react-native-babel-preset": "^0.53.0"
+    "jest": "^24.5.0",
+    "metro-react-native-babel-preset": "^0.53.0",
+    "prettier": "^1.16.4",
+    "react": "^16.8.6",
+    "react-native": "^0.59.3",
+    "react-test-renderer": "^16.8.6"
   }
 }

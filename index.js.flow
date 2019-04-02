@@ -1,0 +1,10 @@
+// @flow
+import * as React from 'react';
+
+type EnhancedComponentWithAccessToTheNestedOne = React.ComponentType<any> & {
+  wrappedComponent: React.ComponentType<any>,
+};
+
+declare export const withMappedNavigationProps: EnhancedComponentWithAccessToTheNestedOne = (
+  SecondOrderWrapperComponent: React.ComponentType<any>
+) => (WrappedComponent: React.ComponentType<any>);
