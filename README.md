@@ -102,3 +102,7 @@ class ChatScreen extends React.Component {}
 ```
 
 That way, in your `ChatScreen` component, you don't have to work with user id, but directly work with the user object.
+
+### Acessing the wrapped component
+
+The original component wrapped by `withMappedNavigationProps` is available as `wrappedComponent` property of the created HOC. This can be useful for testing.
