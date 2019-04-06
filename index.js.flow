@@ -5,6 +5,6 @@ type EnhancedComponentWithAccessToTheNestedOne = React.ComponentType<any> & {
   wrappedComponent: React.ComponentType<any>,
 };
 
-declare export const withMappedNavigationProps: EnhancedComponentWithAccessToTheNestedOne = (
+declare export const withMappedNavigationParams: EnhancedComponentWithAccessToTheNestedOne = (
   SecondOrderWrapperComponent: React.ComponentType<any>
 ) => (WrappedComponent: React.ComponentType<any>);

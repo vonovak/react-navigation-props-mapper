@@ -1,7 +1,7 @@
 import React from 'react';
 import hoistNonReactStatics from 'hoist-non-react-statics';
 
-export const withMappedNavigationProps = SecondOrderWrapperComponent => WrappedComponent => {
+export const withMappedNavigationParams = SecondOrderWrapperComponent => WrappedComponent => {
   const TargetWithHoistedStatics = mapNavigationProps(SecondOrderWrapperComponent)(
     WrappedComponent
   );
@@ -34,7 +34,7 @@ export const mapNavigationProps = SecondOrderWrapperComponent => WrappedComponen
     }
   };
 
-  TargetComponent.displayName = `withMappedNavigationProps(${WrappedComponent.displayName ||
+  TargetComponent.displayName = `withMappedNavigationParams(${WrappedComponent.displayName ||
     WrappedComponent.name})`;
 
   hoistNonReactStatics(TargetComponent, WrappedComponent);

@@ -1,6 +1,6 @@
 import renderer from 'react-test-renderer';
 import React from 'react';
-import { withMappedNavigationProps } from '../index';
+import { withMappedNavigationParams } from '../index';
 import { Text } from 'react-native';
 
 class TestComponent extends React.Component {
@@ -15,11 +15,11 @@ class TestComponent extends React.Component {
 
 const mockNavProp = Object.freeze({ state: { params: { drink: 'soda' } } });
 
-describe('withMappedNavigationProps()', () => {
+describe('withMappedNavigationParams()', () => {
   let testedInstance, EnhancedComponent;
 
   beforeEach(() => {
-    EnhancedComponent = withMappedNavigationProps()(TestComponent);
+    EnhancedComponent = withMappedNavigationParams()(TestComponent);
     testedInstance = renderer.create(<EnhancedComponent navigation={mockNavProp} />);
   });
 
@@ -34,7 +34,7 @@ describe('withMappedNavigationProps()', () => {
     });
 
     it(
-      'given that navigationOptions is a function' +
+      'given that navigationOptions is a function ' +
         'the navigation params are directly accessible in it',
       () => {
         expect(EnhancedComponent.navigationOptions({ navigation: mockNavProp })).toEqual({
@@ -49,7 +49,7 @@ describe('withMappedNavigationProps()', () => {
   });
 
   it(
-    'given SecondOrderWrapperComponent that overrides the "drink" prop to "coke",' +
+    'given SecondOrderWrapperComponent that overrides the "drink" prop to "coke", ' +
       'WrappedComponent is rendered and the "drink" prop is overridden',
     () => {
       class SecondOrderWrapper extends React.Component {
@@ -59,7 +59,7 @@ describe('withMappedNavigationProps()', () => {
         }
       }
 
-      EnhancedComponent = withMappedNavigationProps(SecondOrderWrapper)(TestComponent);
+      EnhancedComponent = withMappedNavigationParams(SecondOrderWrapper)(TestComponent);
       testedInstance = renderer.create(<EnhancedComponent navigation={mockNavProp} />);
 
       expect(testedInstance.toJSON()).toMatchInlineSnapshot(`
