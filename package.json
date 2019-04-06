@@ -1,6 +1,6 @@
 {
   "name": "react-navigation-props-mapper",
-  "version": "0.4.0",
+  "version": "1.0.0",
   "description": "Make your life a little easier by using regular props with react-navigation.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
