@@ -66,7 +66,7 @@ static navigationOptions = ({ navigation, name }) => ({
 
 ### Injecting Additional Props to Your screen
 
-This is an advanced use-case and you likely don't need to use this feature. Consider the [deep linking guide](https://reactnavigation.org/docs/deep-linking.html) from react-navigation.
+This is an advanced use-case and you may don't need to use this feature. Consider the [deep linking guide](https://reactnavigation.org/docs/deep-linking.html) from react-navigation.
 You have a chat screen defined as:
 
 ```js
