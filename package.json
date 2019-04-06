@@ -2,9 +2,11 @@
   "name": "react-navigation-props-mapper",
   "version": "0.4.0",
   "description": "Make your life a little easier by using regular props with react-navigation.",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest",
+    "build": "rm -rf dist && babel index.js --out-dir dist && cp ./index.d.ts ./dist && cp ./index.js.flow ./dist"
   },
   "repository": {
     "type": "git",
@@ -13,19 +15,28 @@
   "keywords": [
     "react-native",
     "react-navigation",
-    "regular",
+    "regular props",
     "props"
   ],
   "peerDependencies": {
     "react": "*"
   },
   "dependencies": {
-    "hoist-non-react-statics": "^2.2.1"
+    "hoist-non-react-statics": "^3.3.0"
   },
   "author": "Vojtech Novak",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/vonovak/react-navigation-props-mapper/issues"
   },
-  "homepage": "https://github.com/vonovak/react-navigation-props-mapper#readme"
+  "homepage": "https://github.com/vonovak/react-navigation-props-mapper#readme",
+  "devDependencies": {
+    "@babel/core": "^7.3.4",
+    "jest": "^24.5.0",
+    "metro-react-native-babel-preset": "^0.53.0",
+    "prettier": "^1.16.4",
+    "react": "^16.8.6",
+    "react-native": "^0.59.3",
+    "react-test-renderer": "^16.8.6"
+  }
 }

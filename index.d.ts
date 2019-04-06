@@ -1,20 +1,13 @@
 declare module 'react-navigation-props-mapper' {
-	import * as React from "react";
+  import * as React from 'react';
 
-  export const withMappedNavigationProps: withMappedNavigationPropsDecorator;
+  export const withMappedNavigationParams: withMappedNavigationParamsDecorator;
 
-  export const withMappedNavigationAndConfigProps: withMappedNavigationAndConfigPropsDecorator;
-
-
-  interface withMappedNavigationAndConfigPropsDecorator {
+  interface withMappedNavigationParamsDecorator {
     (SecondOrderWrapperComponent: React.ReactNode): WrappedComponent;
-  }
-
-  interface withMappedNavigationPropsDecorator {
-    (): WrappedComponent;
   }
 
   type WrappedComponent = {
     (target: React.ReactNode): any;
-  }
+  };
 }

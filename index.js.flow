@@ -1,0 +1,14 @@
+// @flow
+import * as React from 'react';
+
+type EnhancedComponentWithAccessToTheNestedOne = React.ComponentType<any> & {
+  wrappedComponent: React.ComponentType<any>,
+};
+
+declare function paramsMapper(
+  WrappedComponent: React.ComponentType<any>
+): EnhancedComponentWithAccessToTheNestedOne;
+
+declare export function withMappedNavigationParams(
+  SecondOrderWrapperComponent: React.ComponentType<any>
+): paramsMapper;
