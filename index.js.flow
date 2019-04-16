@@ -10,5 +10,5 @@ declare function paramsMapper(
 ): EnhancedComponentWithAccessToTheNestedOne;
 
 declare export function withMappedNavigationParams(
-  SecondOrderWrapperComponent: React.ComponentType<any>
-): paramsMapper;
+  SecondOrderWrapperComponent: ?React.ComponentType<any>
+): typeof paramsMapper;
