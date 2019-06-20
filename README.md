@@ -66,7 +66,7 @@ static navigationOptions = ({ navigation, name }) => ({
 
 ### Injecting Additional Props to Your screen
 
-This is an advanced use-case and you may don't need to use this feature. Consider the [deep linking guide](https://reactnavigation.org/docs/deep-linking.html) from react-navigation.
+This is an advanced use-case and you may not need this feature. Consider the [deep linking guide](https://reactnavigation.org/docs/deep-linking.html) from react-navigation.
 You have a chat screen defined as:
 
 ```js
@@ -76,13 +76,14 @@ Chat: {
   },
 ```
 
-you may need to use the `userId` parameter to get the respective `user` object and do some work with it. Wouldn't it be more convenient to directly get the `user` object instead of just the id? `withMappedNavigationParams` accepts an optional parameter, of type `React.ComponentType` (a react component) that gets all the navigation props and the wrapped component as props. You may do some additional logic in this component and then render the wrapped component, for example:
+you may need to use the `userId` parameter to get the respective `user` object and do some work with it. Wouldn't it be more convenient to directly get the `user` object instead of just the id? `withMappedNavigationParams` accepts an optional parameter, of type `React.ComponentType` (a React component) that gets all the navigation props and the wrapped component as props. You may do some additional logic in this component and then render the wrapped component, for example:
 
 ```js
 import React from 'react';
 import { inject } from 'mobx-react/native';
 import { withMappedNavigationParams } from 'react-navigation-props-mapper';
 
+@inject('userStore') //this injects userStore as a prop, via react context
 class AdditionalPropsInjecter extends React.Component {
   // In this component you may do eg. a network fetch to get data needed by the screen component.
   render() {
@@ -96,7 +97,6 @@ class AdditionalPropsInjecter extends React.Component {
   }
 }
 
-@inject('userStore') //this injects userStore as a prop, via react context
 @withMappedNavigationParams(AdditionalPropsInjecter)
 class ChatScreen extends React.Component {}
 ```
