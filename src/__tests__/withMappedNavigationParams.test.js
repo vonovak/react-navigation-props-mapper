@@ -3,28 +3,22 @@ import React from 'react';
 import { withMappedNavigationParams } from '../index';
 import { Text } from 'react-native';
 
-class TestComponent extends React.Component {
-  static navigationOptions = ({ drink }) => ({
-    title: drink,
-  });
-
-  render() {
-    return <Text>I love {this.props.drink}</Text>;
-  }
+function TestComponent({ drink }) {
+  return <Text>I love {drink}</Text>;
 }
 
-const mockNavProp = Object.freeze({ state: { params: { drink: 'soda' } } });
+const mockRouteProp = Object.freeze({ params: { drink: 'soda' } });
 
 describe('withMappedNavigationParams()', () => {
   let testedInstance, EnhancedComponent;
 
   beforeEach(() => {
     EnhancedComponent = withMappedNavigationParams()(TestComponent);
-    testedInstance = renderer.create(<EnhancedComponent navigation={mockNavProp} />);
+    testedInstance = renderer.create(<EnhancedComponent route={mockRouteProp} />);
   });
 
   describe('regardless of SecondOrderWrapperComponent', () => {
-    it('drink prop is passed from navigation params to standard component prop', () => {
+    it('drink prop is passed from route params to standard component prop', () => {
       expect(testedInstance.toJSON()).toMatchInlineSnapshot(`
 <Text>
   I love 
@@ -32,16 +26,6 @@ describe('withMappedNavigationParams()', () => {
 </Text>
 `);
     });
-
-    it(
-      'given that navigationOptions is a function ' +
-        'the navigation params are directly accessible in it',
-      () => {
-        expect(EnhancedComponent.navigationOptions({ navigation: mockNavProp })).toEqual({
-          title: 'soda',
-        });
-      }
-    );
 
     it('wrappedComponent refers to the original component that we wrapped', () => {
       expect(EnhancedComponent.wrappedComponent).toBe(TestComponent);
@@ -60,7 +44,7 @@ describe('withMappedNavigationParams()', () => {
       }
 
       EnhancedComponent = withMappedNavigationParams(SecondOrderWrapper)(TestComponent);
-      testedInstance = renderer.create(<EnhancedComponent navigation={mockNavProp} />);
+      testedInstance = renderer.create(<EnhancedComponent route={mockRouteProp} />);
 
       expect(testedInstance.toJSON()).toMatchInlineSnapshot(`
 <Text>
