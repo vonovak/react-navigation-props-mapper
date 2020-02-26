@@ -6,11 +6,6 @@ export const withMappedNavigationParams = SecondOrderWrapperComponent => Wrapped
     WrappedComponent
   );
 
-  if (typeof WrappedComponent.navigationOptions === 'function') {
-    TargetWithHoistedStatics.navigationOptions = navigationProps =>
-      mapScreenConfigProps(navigationProps, WrappedComponent.navigationOptions);
-  }
-
   return TargetWithHoistedStatics;
 };
 
@@ -18,18 +13,11 @@ export const mapNavigationProps = SecondOrderWrapperComponent => WrappedComponen
   const TargetComponent = props => {
     const { params } = props.route;
 
-    const { screenProps, ...propsExceptScreenProps } = props;
-
     if (!SecondOrderWrapperComponent) {
-      return <WrappedComponent {...screenProps} {...propsExceptScreenProps} {...params} />;
+      return <WrappedComponent {...props} {...params} />;
     } else {
       return (
-        <SecondOrderWrapperComponent
-          WrappedComponent={WrappedComponent}
-          {...screenProps}
-          {...propsExceptScreenProps}
-          {...params}
-        />
+        <SecondOrderWrapperComponent WrappedComponent={WrappedComponent} {...props} {...params} />
       );
     }
   };
@@ -41,9 +29,3 @@ export const mapNavigationProps = SecondOrderWrapperComponent => WrappedComponen
   TargetComponent.wrappedComponent = WrappedComponent;
   return TargetComponent;
 };
-
-function mapScreenConfigProps(reactNavigationProps, navigationOptionsFunction) {
-  const { navigation, screenProps, navigationOptions } = reactNavigationProps;
-  const props = { ...screenProps, ...navigation.state.params, navigationOptions, navigation };
-  return navigationOptionsFunction(props);
-}
