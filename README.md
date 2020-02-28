@@ -8,12 +8,19 @@ or
 
 ## Motivation
 
-You're using react-navigation to navigate around your React Native app. The [documentation](https://reactnavigation.org/docs/params.html) describes you should use `this.props.navigation.getParam(paramName, defaultValue)` or alternatively `this.props.navigation.state.params` to access props passed to your screen. For example:
+If you started RN development in 2018 or so, you remember how painful navigation was back then. To name some of the libraries, there were `react-native-router-flux`, `NavigationExperimental`, `ex-navigation` and finally `react-navigation`. This library started as a way to abstract away different ways in which navigation libraries passed screen params, making your screen component less dependent or even independent of the used navigation library.
+
+In `react-navigation` there were different ways to access navigation params:
+
+- `this.props.navigation.state.params` (from version 1)
+- `this.props.navigation.getParam(paramName, defaultValue)` (added in version 3)
+- `this.props.route.params` (the only way to read params in version 5)
+
+Example with v5:
 
 ```js
-render() {
-  // The screen's current route is passed in to `props.navigation.state`:
-  const { params } = this.props.navigation.state;
+function SomeComponent({ route }) {
+  const { params } = route;
   return (
     <View>
       <Text>Chat with {params.user.userName}</Text>
@@ -22,79 +29,58 @@ render() {
 }
 ```
 
-This works well but if you don't want your code to be tightly coupled to `react-navigation` (maybe because you're migrating from another navigation lib) or if you simply want to work with navigation params the same way as with any other props (and have them typed), this package will help.
+This works well but if you don't want your code to be tightly coupled to `react-navigation` (maybe because you're migrating from version 4 to 5) or if you simply want to work with navigation params the same way as with any other props, this package will help.
 
 ### `withMappedNavigationParams`
 
-Use this function to be able to access the navigation params passed to your screen _directly_ from the props. Eg. instead of `this.props.navigation.state.params.user.userName` you'd write `this.props.user.userName`. The function wraps the provided component in a HOC and passes everything from `props.navigation.state.params` as well as `props.screenProps` to the wrapped component.
+Use this function to be able to access the navigation params passed to your screen _directly_ from the props. Eg. instead of `this.props.route.params.user.userName` you'd write `this.props.user.userName`. The function wraps the provided component in a HOC and passes everything from `props.route.params` to the wrapped component.
 
 #### Usage
 
-When defining the screens for your navigator, wrap the screen component with the function. For example:
+When defining the screens for your navigator, wrap the screen component with the provided function. For example:
 
 ```js
-import { withMappedNavigationParams } from 'react-navigation-props-mapper'
+import { withMappedNavigationParams } from 'react-navigation-props-mapper';
 
+function SomeScreen(props) {
+  // return something
+}
+
+export default withMappedNavigationParams()(SomeScreen);
+
+// decorator that can be used with class components
 @withMappedNavigationParams()
-export default class SomeScreen extends Component {
-
-// if you don't want to use decorators:
-export default withMappedNavigationParams()(SomeScreen)
-```
-
-When using a function in `static navigationOptions` to configure eg. a screen header dynamically based on the props, you're dealing with the same issues as mentioned above. `withMappedNavigationParams` also works here. For example, it allows turning
-
-```js
-static navigationOptions = ({ navigation }) => ({
-  title: `${navigation.state.params.name}'s Profile!`,
-  headerRight: (
-      <HeaderButton title="Sort" onPress={() => navigation.navigate('DrawerOpen')} />
-    ),
-});
-```
-
-into
-
-```js
-static navigationOptions = ({ navigation, name }) => ({
-  title: `${name}'s Profile!`,
-  headerRight: (
-      <HeaderButton title="Sort" onPress={() => navigation.navigate('DrawerOpen')} />
-    ),
-});
+export class SomeScreen extends Component {}
 ```
 
 ### Injecting Additional Props to Your screen
 
 This is an advanced use-case and you may not need this feature. Consider the [deep linking guide](https://reactnavigation.org/docs/deep-linking.html) from react-navigation.
-You have a chat screen defined as:
+You have a chat screen that expects a `userId` parameter provided by deep linking:
 
 ```js
-Chat: {
-    screen: ChatScreen,
-    path: 'chat/:userId',
-  },
+config: {
+  path: 'chat/:userId',
+},
 ```
 
-you may need to use the `userId` parameter to get the respective `user` object and do some work with it. Wouldn't it be more convenient to directly get the `user` object instead of just the id? `withMappedNavigationParams` accepts an optional parameter, of type `React.ComponentType` (a React component) that gets all the navigation props and the wrapped component as props. You may do some additional logic in this component and then render the wrapped component, for example:
+you may need to use the `userId` parameter to get the respective `User` object and do some work with it. Wouldn't it be more convenient to directly get the `User` object instead of just the id? `withMappedNavigationParams` accepts an optional parameter, of type `React.ComponentType` (a React component) that gets all the navigation props and the wrapped component as props. You may do some additional logic in this component and then render the wrapped component, for example:
 
 ```js
-import React from 'react';
-import { inject } from 'mobx-react/native';
+import React, { useContext } from 'react';
 import { withMappedNavigationParams } from 'react-navigation-props-mapper';
 
-@inject('userStore') //this injects userStore as a prop, via react context
-class AdditionalPropsInjecter extends React.Component {
-  // In this component you may do eg. a network fetch to get data needed by the screen component.
-  render() {
-    const { WrappedComponent, userStore, userId } = this.props;
+function AdditionalPropsInjecter(props) {
+  const userStore = useContext(UserStoreContext);
 
-    const additionalProps = {};
-    if (userId) {
-      additionalProps.user = userStore.getUserById(userId);
-    }
-    return <WrappedComponent {...this.props} {...additionalProps} />;
+  // In this component you may do eg. a network fetch to get data needed by the screen component.
+  const { WrappedComponent, userId } = props;
+
+  const additionalProps = {};
+  if (userId) {
+    additionalProps.user = userStore.getUserById(userId);
   }
+  return <WrappedComponent {...props} {...additionalProps} />;
 }
 
 @withMappedNavigationParams(AdditionalPropsInjecter)
