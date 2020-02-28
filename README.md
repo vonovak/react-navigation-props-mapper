@@ -1,5 +1,9 @@
 ## react-navigation-props-mapper
 
+> NOTE use version 1 of this package for `react-navigation` version 4 and lower
+>
+> use version 2 of this package for `react-navigation` version 5
+
 `yarn add react-navigation-props-mapper`
 
 or
