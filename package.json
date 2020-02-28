@@ -31,6 +31,7 @@
   },
   "homepage": "https://github.com/vonovak/react-navigation-props-mapper#readme",
   "devDependencies": {
+    "@babel/cli": "^7.8.4",
     "@babel/core": "^7.3.4",
     "jest": "^24.5.0",
     "metro-react-native-babel-preset": "^0.53.0",
