@@ -43,7 +43,7 @@ export const mapNavigationProps = SecondOrderWrapperComponent => WrappedComponen
 };
 
 function mapScreenConfigProps(reactNavigationProps, navigationOptionsFunction) {
-  const { navigation, screenProps, navigationOptions } = reactNavigationProps;
-  const props = { ...screenProps, ...navigation.state.params, navigationOptions, navigation };
+  const { navigation, screenProps, navigationOptions, theme } = reactNavigationProps;
+  const props = { ...screenProps, ...navigation.state.params, navigationOptions, navigation, theme };
   return navigationOptionsFunction(props);
 }
