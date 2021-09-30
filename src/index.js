@@ -11,7 +11,7 @@ export const withMappedNavigationParams = SecondOrderWrapperComponent => Wrapped
 
 export const mapNavigationProps = SecondOrderWrapperComponent => WrappedComponent => {
   const TargetComponent = props => {
-    const { params } = props.route;
+    const params = props?.route?.params ?? {};
 
     if (!SecondOrderWrapperComponent) {
       return <WrappedComponent {...props} {...params} />;
