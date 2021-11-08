@@ -1,0 +1,22 @@
+{
+  "name": "react-navigation-props-mapper-example",
+  "displayName": "ReactNavigationPropsMapper Example",
+  "expo": {
+    "name": "react-navigation-props-mapper-example",
+    "slug": "react-navigation-props-mapper-example",
+    "description": "Example app for react-navigation-props-mapper",
+    "privacy": "public",
+    "version": "1.0.0",
+    "platforms": [
+      "ios",
+      "android",
+      "web"
+    ],
+    "ios": {
+      "supportsTablet": true
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}

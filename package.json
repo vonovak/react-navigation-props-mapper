@@ -1,43 +1,164 @@
 {
   "name": "react-navigation-props-mapper",
-  "version": "2.0.0",
-  "description": "Make your life a little easier by using regular props with react-navigation.",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "version": "0.1.0",
+  "description": "forward navigation params as regular props",
+  "main": "lib/commonjs/index",
+  "module": "lib/module/index",
+  "types": "lib/typescript/index.d.ts",
+  "react-native": "src/index",
+  "source": "src/index",
+  "files": [
+    "src",
+    "lib",
+    "android",
+    "ios",
+    "cpp",
+    "react-navigation-props-mapper.podspec",
+    "!lib/typescript/example",
+    "!android/build",
+    "!ios/build",
+    "!**/__tests__",
+    "!**/__fixtures__",
+    "!**/__mocks__"
+  ],
   "scripts": {
     "test": "jest",
-    "build": "rm -rf dist && babel src/index.js --out-dir dist && cp ./src/index.d.ts ./dist && cp ./src/index.js.flow ./dist"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/vonovak/react-navigation-props-mapper.git"
+    "typescript": "tsc --noEmit",
+    "lint": "eslint \"**/*.{js,ts,tsx}\"",
+    "prepare": "bob build",
+    "release": "release-it",
+    "example": "yarn --cwd example",
+    "pods": "cd example && pod-install --quiet",
+    "bootstrap": "yarn example && yarn && yarn pods"
   },
   "keywords": [
     "react-native",
-    "react-navigation",
-    "regular props",
-    "props"
+    "ios",
+    "android"
   ],
-  "peerDependencies": {
-    "react": "*"
-  },
-  "dependencies": {
-    "hoist-non-react-statics": "^3.3.0"
-  },
-  "author": "Vojtech Novak",
+  "repository": "https://github.com/vonovak/react-navigation-props-mapper",
+  "author": "Vojtech Novak <vonovak@gmail.com> (https://github.com/vonovak)",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/vonovak/react-navigation-props-mapper/issues"
   },
   "homepage": "https://github.com/vonovak/react-navigation-props-mapper#readme",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
   "devDependencies": {
-    "@babel/cli": "^7.8.4",
-    "@babel/core": "^7.3.4",
-    "jest": "^24.5.0",
-    "metro-react-native-babel-preset": "^0.53.0",
-    "prettier": "^1.16.4",
-    "react": "^16.8.6",
-    "react-native": "^0.59.3",
-    "react-test-renderer": "^16.8.6"
+    "@commitlint/config-conventional": "^11.0.0",
+    "@react-native-community/eslint-config": "^2.0.0",
+    "@react-navigation/bottom-tabs": "^6.0.9",
+    "@react-navigation/core": "^6.1.0",
+    "@react-navigation/drawer": "^6.1.8",
+    "@react-navigation/native-stack": "^6.2.4",
+    "@react-navigation/stack": "^6.0.11",
+    "@release-it/conventional-changelog": "^2.0.0",
+    "@types/hoist-non-react-statics": "^3.3.1",
+    "@types/jest": "^26.0.0",
+    "@types/react": "^16.9.19",
+    "@types/react-native": "0.62.13",
+    "@types/react-test-renderer": "^16.9.5",
+    "commitlint": "^11.0.0",
+    "eslint": "^7.2.0",
+    "eslint-config-prettier": "^7.0.0",
+    "eslint-plugin-prettier": "^3.1.3",
+    "husky": "^4.2.5",
+    "jest": "^26.0.1",
+    "pod-install": "^0.1.0",
+    "prettier": "^2.0.5",
+    "react": "16.13.1",
+    "react-native": "0.63.4",
+    "react-native-builder-bob": "^0.18.0",
+    "react-test-renderer": "16.13.1",
+    "release-it": "^14.2.2",
+    "typescript": "^4.1.3"
+  },
+  "peerDependencies": {
+    "react": "*",
+    "react-native": "*"
+  },
+  "jest": {
+    "preset": "react-native",
+    "modulePathIgnorePatterns": [
+      "<rootDir>/example/node_modules",
+      "<rootDir>/lib/"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
+      "pre-commit": "yarn lint && yarn typescript"
+    }
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  },
+  "release-it": {
+    "git": {
+      "commitMessage": "chore: release ${version}",
+      "tagName": "v${version}"
+    },
+    "npm": {
+      "publish": true
+    },
+    "github": {
+      "release": true
+    },
+    "plugins": {
+      "@release-it/conventional-changelog": {
+        "preset": "angular"
+      }
+    }
+  },
+  "eslintConfig": {
+    "root": true,
+    "extends": [
+      "@react-native-community",
+      "prettier"
+    ],
+    "rules": {
+      "prettier/prettier": [
+        "error",
+        {
+          "quoteProps": "consistent",
+          "singleQuote": true,
+          "tabWidth": 2,
+          "trailingComma": "es5",
+          "useTabs": false
+        }
+      ]
+    }
+  },
+  "eslintIgnore": [
+    "node_modules/",
+    "lib/"
+  ],
+  "prettier": {
+    "quoteProps": "consistent",
+    "singleQuote": true,
+    "tabWidth": 2,
+    "trailingComma": "es5",
+    "useTabs": false
+  },
+  "react-native-builder-bob": {
+    "source": "src",
+    "output": "lib",
+    "targets": [
+      "commonjs",
+      "module",
+      [
+        "typescript",
+        {
+          "project": "tsconfig.build.json"
+        }
+      ]
+    ]
+  },
+  "dependencies": {
+    "hoist-non-react-statics": "^3.3.2"
   }
 }
