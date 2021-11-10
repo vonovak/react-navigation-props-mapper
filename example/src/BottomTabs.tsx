@@ -9,7 +9,7 @@ import {
 } from 'react-navigation-props-mapper';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
-type UserIdParam = { userId: string; navigation: string };
+type UserIdParam = { userId: string };
 
 type TabParamList = {
   Home: undefined;

@@ -5,11 +5,8 @@ import type { ParamListBase, RouteProp } from '@react-navigation/core';
 import type { StackScreenProps } from '@react-navigation/stack';
 import type { DrawerScreenProps } from '@react-navigation/drawer';
 
-// we do not want to allow "route", "paramList" and "navigation" param names but currently seems impossible
-export type RestrictedParamListBase = ParamListBase;
-
 export type ScreenPropsSource<
-  ParamList extends RestrictedParamListBase,
+  ParamList extends ParamListBase,
   RouteName extends keyof ParamList = string
 > =
   | DrawerScreenProps<ParamList, RouteName>
@@ -22,7 +19,7 @@ export type ParamListKeyType = typeof paramListKey;
 
 export type ScreenPropsWithForwardedNavParams<
   ScreenProps extends ScreenPropsSource<ParamList, RouteName>,
-  ParamList extends RestrictedParamListBase,
+  ParamList extends ParamListBase,
   RouteName extends keyof ParamList = string
 > = Omit<
   {
@@ -41,7 +38,7 @@ export type ScreenPropsWithForwardedNavParams<
   };
 
 export type ForwardedNativeStackScreenProps<
-  ParamList extends RestrictedParamListBase,
+  ParamList extends ParamListBase,
   RouteName extends keyof ParamList = string
 > = ScreenPropsWithForwardedNavParams<
   NativeStackScreenProps<ParamList, RouteName>,
@@ -50,7 +47,7 @@ export type ForwardedNativeStackScreenProps<
 >;
 
 export type ForwardedStackScreenProps<
-  ParamList extends RestrictedParamListBase,
+  ParamList extends ParamListBase,
   RouteName extends keyof ParamList = string
 > = ScreenPropsWithForwardedNavParams<
   StackScreenProps<ParamList, RouteName>,
@@ -59,7 +56,7 @@ export type ForwardedStackScreenProps<
 >;
 
 export type ForwardedDrawerScreenProps<
-  ParamList extends RestrictedParamListBase,
+  ParamList extends ParamListBase,
   RouteName extends keyof ParamList = string
 > = ScreenPropsWithForwardedNavParams<
   DrawerScreenProps<ParamList, RouteName>,
@@ -68,7 +65,7 @@ export type ForwardedDrawerScreenProps<
 >;
 
 export type ForwardedTabScreenProps<
-  ParamList extends RestrictedParamListBase,
+  ParamList extends ParamListBase,
   RouteName extends keyof ParamList = string
 > = ScreenPropsWithForwardedNavParams<
   BottomTabScreenProps<ParamList, RouteName>,
@@ -77,7 +74,7 @@ export type ForwardedTabScreenProps<
 >;
 
 export type ForwardedScreenProps<
-  ParamList extends RestrictedParamListBase,
+  ParamList extends ParamListBase,
   RouteName extends keyof ParamList = string
 > =
   | ForwardedNativeStackScreenProps<ParamList, RouteName>
