@@ -17,9 +17,6 @@ type ForwardedProfileProps = ForwardedNativeStackScreenProps<
   'Profile'
 >;
 
-const forwardParamsToProfile =
-  withForwardedNavigationParams<ForwardedProfileProps>();
-
 const ScreenWithForwardedProps = ({
   navigation,
   route,
@@ -39,7 +36,9 @@ const ScreenWithForwardedProps = ({
   );
 };
 
-const ProfileScreen = forwardParamsToProfile(ScreenWithForwardedProps);
+const ProfileScreen = withForwardedNavigationParams<ForwardedProfileProps>()(
+  ScreenWithForwardedProps
+);
 
 const Stack = createNativeStackNavigator<StackParamList>();
 
