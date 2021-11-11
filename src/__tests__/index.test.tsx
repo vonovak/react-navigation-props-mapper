@@ -55,7 +55,7 @@ describe('withForwardedNavigationParams()', () => {
     it('drink prop is passed from route params to standard component prop', () => {
       expect(testedInstance.toJSON()).toMatchInlineSnapshot(`
         <Text>
-          I love
+          I love 
           soda
         </Text>
       `);
@@ -90,7 +90,7 @@ describe('withForwardedNavigationParams()', () => {
 
       expect(testedInstance.toJSON()).toMatchInlineSnapshot(`
         <Text>
-          I love
+          I love 
           coke
         </Text>
       `);
