@@ -72,13 +72,19 @@ It exports several TS types that replace the ones exported from `react-navigatio
 For example:
 
 ```ts
-type ForwardedProfileProps = ForwardedNativeStackScreenProps<
+type StackParamList = {
+  Profile: { userId: string };
+};
+
+type ForwardedProfileProps = ForwardedStackScreenProps<
   StackParamList,
   'Profile'
 >;
 
 const ProfileScreen = withForwardedNavigationParams<ForwardedProfileProps>()(
-  ProfileScreenWithForwardedProps
+  function ProfileScreenWithForwardedNavParams({ userId }) {
+    // userId is of type string
+  }
 );
 ```
 
