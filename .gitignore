@@ -11,6 +11,8 @@ node_modules
 dist
 yarn-error.log
 
+example/.expo
+
 # OS X
 .DS_Store
 
