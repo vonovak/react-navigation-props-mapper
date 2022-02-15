@@ -33,7 +33,7 @@ export function forwardNavigationParams<
 >(SecondOrderWrapperComponent?: SecondOrderWrapperType<ScreenProps>) {
   return function (WrappedComponent: ComponentType<ScreenProps>) {
     const TargetComponent = (props: NavigationAndRoute<ScreenProps>) => {
-      const { params } = props.route;
+      const { params } = props.route || ({} as any);
 
       if (!SecondOrderWrapperComponent) {
         return <WrappedComponent {...props} {...params} />;
