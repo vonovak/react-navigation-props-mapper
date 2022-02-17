@@ -1,4 +1,4 @@
-import renderer, { ReactTestRenderer } from 'react-test-renderer';
+import renderer from 'react-test-renderer';
 import React from 'react';
 import { withForwardedNavigationParams } from '../index';
 import { Text } from 'react-native';
@@ -29,11 +29,10 @@ const mockNavigationProp = {} as NativeStackNavigationProp<
 >;
 
 function TestComponent({ drink }: ForwardedTestComponentProps) {
-  return <Text>I love {drink}</Text>;
+  return <Text>I love:{String(drink)}</Text>;
 }
 
 describe('withForwardedNavigationParams()', () => {
-  let testedInstance: ReactTestRenderer;
   let EnhancedComponent: ReturnType<
     WithForwardedNavigationParamsReturn<ForwardedTestComponentProps>
   >;
@@ -43,19 +42,19 @@ describe('withForwardedNavigationParams()', () => {
       withForwardedNavigationParams<ForwardedTestComponentProps>()(
         TestComponent
       );
-    testedInstance = renderer.create(
-      <EnhancedComponent
-        route={mockRouteProp}
-        navigation={mockNavigationProp}
-      />
-    );
   });
 
   describe('regardless of SecondOrderWrapperComponent', () => {
     it('drink prop is passed from route params to standard component prop', () => {
+      const testedInstance = renderer.create(
+        <EnhancedComponent
+          route={mockRouteProp}
+          navigation={mockNavigationProp}
+        />
+      );
       expect(testedInstance.toJSON()).toMatchInlineSnapshot(`
         <Text>
-          I love 
+          I love:
           soda
         </Text>
       `);
@@ -64,24 +63,39 @@ describe('withForwardedNavigationParams()', () => {
     it('wrappedComponent refers to the original component that we wrapped', () => {
       expect(EnhancedComponent.wrappedComponent).toBe(TestComponent);
     });
+
+    it('EnhancedComponent can be used without being included in any navigator', () => {
+      const testedInstance = renderer.create(
+        // @ts-expect-error navigator props are missing - should not be used like this, but will not crash
+        <EnhancedComponent />
+      );
+
+      expect(testedInstance.toJSON()).toMatchInlineSnapshot(`
+        <Text>
+          I love:
+          undefined
+        </Text>
+      `);
+    });
   });
 
   it(
     'given SecondOrderWrapperComponent that overrides the "drink" prop to "coke", ' +
       'WrappedComponent is rendered and the "drink" prop is overridden',
     () => {
-      const SecondOrderWrapper: SecondOrderWrapperType<ForwardedTestComponentProps> =
-        (props) => {
-          const { WrappedComponent, ...other } = props;
-          return <WrappedComponent {...other} drink="coke" />;
-        };
+      const SecondOrderWrapper: SecondOrderWrapperType<
+        ForwardedTestComponentProps
+      > = (props) => {
+        const { WrappedComponent, ...other } = props;
+        return <WrappedComponent {...other} drink="coke" />;
+      };
 
       EnhancedComponent =
         withForwardedNavigationParams<ForwardedTestComponentProps>(
           SecondOrderWrapper
         )(TestComponent);
 
-      testedInstance = renderer.create(
+      const testedInstance = renderer.create(
         <EnhancedComponent
           route={mockRouteProp}
           navigation={mockNavigationProp}
@@ -90,7 +104,7 @@ describe('withForwardedNavigationParams()', () => {
 
       expect(testedInstance.toJSON()).toMatchInlineSnapshot(`
         <Text>
-          I love 
+          I love:
           coke
         </Text>
       `);
