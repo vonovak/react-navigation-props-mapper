@@ -26,7 +26,7 @@
     "typescript": "tsc --noEmit",
     "lint": "eslint \"**/*.{js,ts,tsx}\"",
     "prepare": "bob build",
-    "release": "release-it",
+    "release": "yarn prepare && release-it",
     "example": "yarn --cwd example",
     "pods": "cd example && pod-install --quiet",
     "bootstrap": "yarn example && yarn install --frozen-lockfile && yarn pods"
@@ -47,14 +47,14 @@
     "registry": "https://registry.npmjs.org/"
   },
   "devDependencies": {
-    "@commitlint/config-conventional": "^11.0.0",
+    "@commitlint/config-conventional": "^16.2.1",
     "@react-native-community/eslint-config": "^2.0.0",
     "@react-navigation/bottom-tabs": "^6.0.9",
     "@react-navigation/core": "^6.1.0",
     "@react-navigation/drawer": "^6.1.8",
     "@react-navigation/native-stack": "^6.2.4",
     "@react-navigation/stack": "^6.0.11",
-    "@release-it/conventional-changelog": "^2.0.0",
+    "@release-it/conventional-changelog": "^4.1.0",
     "@types/hoist-non-react-statics": "^3.3.1",
     "@types/jest": "^26.0.0",
     "@types/react": "^16.9.19",
@@ -122,14 +122,7 @@
     ],
     "rules": {
       "prettier/prettier": [
-        "error",
-        {
-          "quoteProps": "consistent",
-          "singleQuote": true,
-          "tabWidth": 2,
-          "trailingComma": "es5",
-          "useTabs": false
-        }
+        "error"
       ]
     }
   },
@@ -137,13 +130,6 @@
     "node_modules/",
     "lib/"
   ],
-  "prettier": {
-    "quoteProps": "consistent",
-    "singleQuote": true,
-    "tabWidth": 2,
-    "trailingComma": "es5",
-    "useTabs": false
-  },
   "react-native-builder-bob": {
     "source": "src",
     "output": "lib",
