@@ -1,6 +1,6 @@
 {
   "name": "react-navigation-props-mapper",
-  "version": "3.0.0",
+  "version": "3.1.0",
   "description": "forward navigation params as regular props",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
